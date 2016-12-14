@@ -1,9 +1,18 @@
 {
-    "require": {
-    },
-    "autoload": {
-        "psr-4": {
-            "kmukku\\phpIso11649\\": ["src/"]
-        }
-    }
+	"name": "kmukku/php-iso11649",
+	"authors": [
+		{
+			"name": "Keijo Mukku",
+			"email": "keijo.mukku@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+	},
+	"autoload": {
+		"psr-4": {
+			"kmukku\\phpIso11649\\": ["src/"]
+		}
+	},
+	"minimum-stability": "stable"
 }
