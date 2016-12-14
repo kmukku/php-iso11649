@@ -1,0 +1,9 @@
+{
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "kmukku\\phpIso11649\\": ["src/"]
+        }
+    }
+}
