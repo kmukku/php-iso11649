@@ -31,7 +31,7 @@ class phpIso11649 {
 		"X" => 33, 
 		"Y" => 34, 
 		"Z" => 35
-	);
+		);
 
 	private function normalizeRef($ref) {
 		return strtoupper(preg_replace('/\s+/','', $ref));
@@ -49,10 +49,11 @@ class phpIso11649 {
 		return $checksum;
 	}
 
-	public function generateRfReference($ref) {
+	public function generateRfReference($ref, $chunksplit = true) {
 		$normalizedRef = $this->normalizeRef($ref);
 		$checksum = $this->calculateRFChecksum($normalizedRef);
-		return "RF".$checksum.$normalizedRef;
+		$rfReference = "RF".$checksum.$normalizedRef;
+		return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
 	}
 
 }
