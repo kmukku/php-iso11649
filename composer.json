@@ -15,14 +15,14 @@
 			"email": "keijo.mukku@gmail.com"
 		}
 	],
-	"homepage": "https://github.com/kmukku/php-qrcode-detector-decoder",
-	"require": {
-		"php": ">=5.4.0"
-	},
+	"homepage": "https://github.com/kmukku/php-iso11649",
 	"autoload": {
 		"psr-4": {
 			"kmukku\\phpIso11649\\": ["src/"]
 		}
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=5.4.0"
+	},
 }
