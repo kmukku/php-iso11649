@@ -34,7 +34,7 @@ class phpIso11649 {
 	);
 
 	private function normalizeRef($ref) {
-		return strtoupper(preg_replace('/\s+/', ' ', $ref));
+		return strtoupper(preg_replace('/\s+/','', $ref));
 	}
 
 	private function replaceChars($string) {
