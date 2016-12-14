@@ -41,11 +41,7 @@ class phpIso11649 {
 		return str_replace(array_keys($this->charTable), array_values($this->charTable), $string);
 	}
 
-	private function generateRFreference($ref) {
-		return "RF".$this->calculateRFChecksum($ref).$ref;
-	}
-
-	private function calculateRFChecksum($ref) {
+	public function calculateRfChecksum($ref) {
 		$preResult = $ref."RF00"; // add 'RF00' to the end of ref
 		$preResult = $this->replaceChars($preResult); // Replace characters
 		$checksum = 98 - ((int)$preResult % 97); // Calculate checksum
@@ -53,9 +49,10 @@ class phpIso11649 {
 		return $checksum;
 	}
 
-	public function generate($reference) {
-		$normalizedRef = $this->normalizeRef($reference);
-		return $this->generateRFreference($normalizedRef);
+	public function generateRfReference($ref) {
+		$normalizedRef = $this->normalizeRef($ref);
+		$checksum = $this->calculateRFChecksum($normalizedRef);
+		return "RF".$checksum.$normalizedRef;
 	}
 
 }
