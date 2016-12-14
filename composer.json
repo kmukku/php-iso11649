@@ -1,10 +1,10 @@
 {
 	"name": "kmukku/php-iso11649",
-	"version": "0.0.1",
 	"type": "library",
+	"license": "MIT",
 	"description": "ISO 11649 creditor reference library for php",
 	"keywords": [
-		"ISO 11649:2009",
+		"ISO 11649",
 		"RF creditor reference",
 		"finance",
 		"banking"
