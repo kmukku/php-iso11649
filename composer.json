@@ -21,7 +21,7 @@
 			"kmukku\\phpIso11649\\": ["src/"]
 		}
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"require": {
 		"php": ">=5.4.0"
 	}
