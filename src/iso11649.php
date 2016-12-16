@@ -44,7 +44,7 @@ class phpIso11649 {
 	public function calculateRfChecksum($ref) {
 		$preResult = $ref."RF00"; // add 'RF00' to the end of ref
 		$preResult = $this->replaceChars($preResult); // Replace to numeric
-		$checksum = 98 - ((int)$preResult % 97); // Calculate checksum
+		$checksum = 98 - (intval($preResult) % 97); // Calculate checksum
 		$checksum = sprintf("%02d", $checksum); // pad to 2 digits if under 10
 		return $checksum;
 	}
@@ -65,7 +65,7 @@ class phpIso11649 {
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
 		// Valid if less than 25 characters and remainder is 1
-		return (strlen($pre) <= 25 && ((int)$num % 97 === 1)) ? true:false;
+		return (strlen($pre) <= 25 && (intval($num) % 97 === 1)) ? true:false;
 	}
 
 }
