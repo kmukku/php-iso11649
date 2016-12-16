@@ -44,7 +44,7 @@ class phpIso11649 {
 	public function calculateRfChecksum($ref) {
 		$preResult = $ref."RF00"; // add 'RF00' to the end of ref
 		$preResult = $this->replaceChars($preResult); // Replace to numeric
-		$checksum = 98 - (intval($preResult) % 97); // Calculate checksum
+		$checksum = 98 - ($preResult % 97); // Calculate checksum
 		$checksum = sprintf("%02d", $checksum); // pad to 2 digits if under 10
 		return $checksum;
 	}
