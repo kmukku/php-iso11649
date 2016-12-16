@@ -65,7 +65,7 @@ class phpIso11649 {
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
 		// Valid if less than 25 characters and remainder is 1
-		return (strlen($normalizedRef) <= 25 && ((int)$num % 97 === 1)) ? true:false;
+		return (strlen($pre) <= 25 && ((int)$num % 97 === 1)) ? true:false;
 	}
 
 }
