@@ -51,25 +51,21 @@ class phpIso11649 {
 
 	public function generateRfReference($input, $chunksplit = true) {
 		$normalizedRef = $this->normalizeRef($input); // Remove whitespace, uppercase
-		if(strlen($normalizedRef) > 24) {
-			return "Input too long";
+		$checksum = $this->calculateRFChecksum($normalizedRef);
+		$rfReference = "RF".$checksum.$normalizedRef;
+		if($this->validateRfReference($rfReference)) {
+			return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
 		} else {
-			$checksum = $this->calculateRFChecksum($normalizedRef);
-			$rfReference = "RF".$checksum.$normalizedRef;
-			if($this->validateRfReference($rfReference)) {
-				return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
-			} else {
-				return "Did not validate";
-			}
+			return $rfReference . " did not validate.";
 		}
 	}
 
 	public function validateRfReference($ref) {
-		$normalizedRef = $this->normalizeRef($ref); // Remove whitespace, uppercase
-		$ref = substr($normalizedRef,4).substr($normalizedRef,0,4); // Move first 4 chars to the end of $ref
+		$pre = $this->normalizeRef($ref); // Remove whitespace, uppercase
+		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
-		// Valid if remainder is 1
-		return ((int)$num % 97 == 1) ? true:false;
+		// Valid if less than 25 characters and remainder is 1
+		return (strlen($normalizedRef) <= 25 && ((int)$num % 97 === 1)) ? true:false;
 	}
 
 }
