@@ -52,14 +52,14 @@ class phpIso11649 {
 	public function generateRfReference($id, $chunksplit = true) {
 		$normalizedRef = $this->normalizeRef($id); // Remove whitespace, uppercase
 		if(strlen($normalizedRef) > 24) {
-			return false;
+			return "Input too long";
 		} else {
 			$checksum = $this->calculateRFChecksum($normalizedRef);
 			$rfReference = "RF".$checksum.$normalizedRef;
 			if($this->validateRfReference($rfReference)) {
 				return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
 			} else {
-				return false;
+				return "Did not validate";
 			}
 		}
 	}
