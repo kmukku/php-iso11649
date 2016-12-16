@@ -50,10 +50,18 @@ class phpIso11649 {
 	}
 
 	public function generateRfReference($id, $chunksplit = true) {
-		$normalizedRef = $this->normalizeRef($id);
-		$checksum = $this->calculateRFChecksum($normalizedRef);
-		$rfReference = "RF".$checksum.$normalizedRef;
-		return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
+		$normalizedRef = $this->normalizeRef($id); // Remove whitespace, uppercase
+		if(strlen($normalizedRef) > 24) {
+			throw new Exception("Input string must be less than 25 characters.");
+		} else {
+			$checksum = $this->calculateRFChecksum($normalizedRef);
+			$rfReference = "RF".$checksum.$normalizedRef;
+			if($this->validateRfReference($rfReference)) {
+				return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
+			} else {
+				throw new Exception("Couldn't create creditor reference. Are you using illegal characters?");
+			}
+		}
 	}
 
 	public function validateRfReference($ref) {
