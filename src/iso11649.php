@@ -49,8 +49,8 @@ class phpIso11649 {
 		return $checksum;
 	}
 
-	public function generateRfReference($id, $chunksplit = true) {
-		$normalizedRef = $this->normalizeRef($id); // Remove whitespace, uppercase
+	public function generateRfReference($input, $chunksplit = true) {
+		$normalizedRef = $this->normalizeRef($input); // Remove whitespace, uppercase
 		if(strlen($normalizedRef) > 24) {
 			return "Input too long";
 		} else {
@@ -68,8 +68,8 @@ class phpIso11649 {
 		$normalizedRef = $this->normalizeRef($ref); // Remove whitespace, uppercase
 		$ref = substr($normalizedRef,4).substr($normalizedRef,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
-		// Valid if less than 25 characters and remainder is 1
-		return (strlen($normalizedRef) < 25 && ((int)$num % 97 == 1)) ? true:false;
+		// Valid if remainder is 1
+		return ((int)$num % 97 == 1) ? true:false;
 	}
 
 }
