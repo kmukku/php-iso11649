@@ -43,17 +43,25 @@ class phpIso11649 {
 
 	public function calculateRfChecksum($ref) {
 		$preResult = $ref."RF00"; // add 'RF00' to the end of ref
-		$preResult = $this->replaceChars($preResult); // Replace characters
+		$preResult = $this->replaceChars($preResult); // Replace to numeric
 		$checksum = 98 - ((int)$preResult % 97); // Calculate checksum
 		$checksum = sprintf("%02d", $checksum); // pad to 2 digits if under 10
 		return $checksum;
 	}
 
-	public function generateRfReference($ref, $chunksplit = true) {
-		$normalizedRef = $this->normalizeRef($ref);
+	public function generateRfReference($id, $chunksplit = true) {
+		$normalizedRef = $this->normalizeRef($id);
 		$checksum = $this->calculateRFChecksum($normalizedRef);
 		$rfReference = "RF".$checksum.$normalizedRef;
 		return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
+	}
+
+	public function validateRfReference($ref) {
+		$normalizedRef = $this->normalizeRef($ref); // Remove whitespace, uppercase
+		$ref = substr($normalizedRef,4).substr($normalizedRef,0,4); // Move first 4 chars to the end of $ref
+		$num = $this->replaceChars($ref); // Replace to numeric
+		// Valid if less than 25 characters and remainder is 1
+		return (strlen($normalizedRef) < 25 && ((int)$num % 97 == 1)) ? true:false;
 	}
 
 }
