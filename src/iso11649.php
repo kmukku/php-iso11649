@@ -38,35 +38,34 @@ class phpIso11649 {
 	}
 
 	private function replaceChars($string) {
-		return str_replace(array_keys($this->charTable), array_values($this->charTable), $string);
+		return str_replace(array_keys($this->charTable), array_values($this->charTable), strtoupper($string));
 	}
 
 	public function calculateRfChecksum($ref) {
 		$preResult = $ref."RF00"; // add 'RF00' to the end of ref
 		$preResult = $this->replaceChars($preResult); // Replace to numeric
-		$checksum = 98 - bcmod($preResult+'', '97'); // Calculate checksum
-		//$checksum = sprintf("%02d", $checksum); // pad to 2 digits if under 10
-		$checksum = str_pad($checksum, 2, "0", STR_PAD_LEFT);
+		$checksum = (98 - bcmod($preResult, '97')); // Calculate checksum
+		$checksum = str_pad($checksum, 2, "0", STR_PAD_LEFT); // pad to 2 digits if under 10
 		return $checksum;
 	}
 
 	public function generateRfReference($input, $chunksplit = true) {
 		$normalizedRef = $this->normalizeRef($input); // Remove whitespace, uppercase
-		$checksum = $this->calculateRFChecksum($normalizedRef);
-		$rfReference = "RF".$checksum.$normalizedRef;
-		if($this->validateRfReference($rfReference)) {
+		$checksum = $this->calculateRFChecksum($normalizedRef); // Generate checksum
+		$rfReference = "RF".$checksum.$normalizedRef; // Join to required format
+		if($this->validateRfReference($rfReference)) { // Check if validates
 			return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
 		} else {
-			return $rfReference . " did not validate.";
+			return false;
 		}
 	}
 
-	public function validateRfReference($ref) {
+	public function validateRfReference((string)$ref) {
 		$pre = $this->normalizeRef($ref); // Remove whitespace, uppercase
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
 		// Valid if less than 25 characters and remainder is 1
-		return (strlen($pre) <= 25 && bcmod($num+'', '97') == 1) ? true:false;
+		return ((strlen($pre) <= 25) && bcmod($num, '97') == 1);
 	}
 
 }
