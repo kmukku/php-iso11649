@@ -60,7 +60,7 @@ class phpIso11649 {
 		}
 	}
 
-	public function validateRfReference((string)$ref) {
+	public function validateRfReference($ref) {
 		$pre = $this->normalizeRef($ref); // Remove whitespace, uppercase
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
