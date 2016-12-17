@@ -64,8 +64,8 @@ class phpIso11649 {
 		$pre = $this->normalizeRef($ref); // Remove whitespace, uppercase
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
-		// Valid if less than 25 characters and remainder is 1
-		return ((strlen($pre) <= 25) && bcmod($num, '97') == 1);
+		// Valid if up to 25 characters long and remainder is 1
+		return ((strlen($pre) < 26) && bcmod($num, '97') == 1);
 	}
 
 }
