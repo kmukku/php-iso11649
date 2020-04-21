@@ -62,6 +62,11 @@ class phpIso11649 {
 
 	public function validateRfReference($ref) {
 		$pre = $this->normalizeRef($ref); // Remove whitespace, uppercase
+
+		if (!preg_match('/^[\w ]*$/', $pre)) { // Only A-Z and numbers are allowed
+			return false;
+		}
+
 		$ref = substr($pre,4).substr($pre,0,4); // Move first 4 chars to the end of $ref
 		$num = $this->replaceChars($ref); // Replace to numeric
 		// Valid if up to 25 characters long and remainder is 1
