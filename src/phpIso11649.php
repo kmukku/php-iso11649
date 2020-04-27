@@ -54,7 +54,7 @@ class phpIso11649 {
 		$checksum = $this->calculateRFChecksum($normalizedRef); // Generate checksum
 		$rfReference = "RF".$checksum.$normalizedRef; // Join to required format
 		if($this->validateRfReference($rfReference)) { // Check if validates
-			return ($chunksplit) ? chunk_split($rfReference,4,' ') : $rfReference;
+			return ($chunksplit) ? trim(chunk_split($rfReference,4,' ')) : trim($rfReference);
 		} else {
 			return false;
 		}

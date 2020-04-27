@@ -22,8 +22,12 @@
 			"kmukku\\phpIso11649\\": ["src/"]
 		}
 	},
+	"autoload-dev": {
+        "psr-4": {"kmukku\\phpIso11649\\Test\\": "tests"}
+    },
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.4.0",
+		"phpunit/phpunit": "^9.1"
 	}
 }
