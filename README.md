@@ -51,3 +51,14 @@ Valid RF creditor reference characteristics:
 
 * 1.0.0
     - Initial release
+
+## Collaboration
+
+### Run Tests
+```
+  vendor/bin/phpunit
+```
+or 
+```
+  vendor/bin/phpunit --testsuite=unit
+```
