@@ -62,3 +62,11 @@ or
 ```
   vendor/bin/phpunit --testsuite=unit
 ```
+or via the provided Dockerfiles
+```
+# PHP 8+
+docker build -t php-iso11649 . && docker run -t --rm php-iso11649
+
+# PHP 5.6
+docker build -t php-iso11649-legacy --file legacy.Dockerfile . && docker run -t --rm php-iso11649-legacy
+```
